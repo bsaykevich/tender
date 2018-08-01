@@ -20,7 +20,6 @@ public class AuctionPeriodDeserializer implements JsonDeserializer<AuctionPeriod
     public String endDate;*/
 
 
-    @Override
     public AuctionPeriod deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
 
         AuctionPeriod auctionPeriod = new AuctionPeriod();

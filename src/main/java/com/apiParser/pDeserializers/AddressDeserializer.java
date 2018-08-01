@@ -2,13 +2,15 @@
 package com.apiParser.pDeserializers;
 
 import com.apiParser.pDeserializers.util.DeserializersUtil;
+import com.apiParser.pDeserializers.util.CheckFieldsUtil;
 import com.apiParser.pModel.Address;
 import com.google.gson.*;
-import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
+import gnu.trove.set.hash.THashSet;
 
 import java.lang.reflect.Type;
 import java.util.Map;
+import java.util.Set;
+
 
 public class AddressDeserializer implements JsonDeserializer<Address> {
 
@@ -29,8 +31,13 @@ public class AddressDeserializer implements JsonDeserializer<Address> {
     public String locality;*/
 
 
-    @Override
     public Address deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+
+        //проверяет, имеет ли POJO поля для всех json-атрибутов
+        Boolean hasFieldsForAllJsonAttrs = CheckFieldsUtil.hasFieldsForAllJsonAttrs(json, typeOfT);
+        //проверяет, все ли POJO-поля с @NotNull имеют соответствующие атрибуты в json-е
+        Boolean hasValuesForAllNotNullFields = CheckFieldsUtil.hasValuesForAllNotNullFields(json, typeOfT);
+
 
         Address address = new Address();
 
